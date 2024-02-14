@@ -20,16 +20,20 @@ class SecondActivity : AppCompatActivity() {
         val selectedItem = intent.getParcelableExtra<Item>("selectedItem")
 
         // Initialize views to display item details
-        val titleTextView: TextView = findViewById(R.id.titleTextView)
-        val subtitleTextView: TextView = findViewById(R.id.subtitleTextView)
-        val imageView: ImageView = findViewById(R.id.imageView)
+        val titleTextView: TextView = findViewById(R.id.item_title)
+        val subtitleTextView: TextView = findViewById(R.id.item_subtitle)
+        val descriptionTextView: TextView = findViewById(R.id.item_description)
+        val imageView: ImageView = findViewById(R.id.item_thumbnail)
+        val idTextView: TextView = findViewById(R.id.item_ID)
 
         // Set the text for title and subtitle TextViews
         titleTextView.text = selectedItem?.title
         subtitleTextView.text = selectedItem?.subtitle
+        descriptionTextView.text = selectedItem?.description
 
         // Set the image resource for the ImageView
         imageView.setImageResource(selectedItem?.imageResId ?: R.drawable.ic_launcher_foreground)
+        idTextView.text = selectedItem?.id.toString()
 
         // Initialize and set click listener for the back button
         button = findViewById(R.id.backbutton)

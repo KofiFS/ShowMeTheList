@@ -3,36 +3,37 @@ package com.example.showmethelist
 import android.os.Parcel
 import android.os.Parcelable
 
-// Data class representing an item
-data class Item(val title: String, val subtitle: String, val imageResId: Int) : Parcelable {
-    // Parcelable constructor
+// Updated data class representing an item
+data class Item(
+    val id: Int,
+    val title: String,
+    val subtitle: String,
+    val description: String, // New field
+    val imageResId: Int
+) : Parcelable {
+    // Updated Parcelable constructor
     constructor(parcel: Parcel) : this(
+        parcel.readInt(),
         parcel.readString() ?: "",
         parcel.readString() ?: "",
+        parcel.readString() ?: "", // Handle description
         parcel.readInt()
     )
 
-    // Write data to parcel
+    // Updated write to parcel to include id and description
     override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeInt(id)
         parcel.writeString(title)
         parcel.writeString(subtitle)
+        parcel.writeString(description) // Write description to parcel
         parcel.writeInt(imageResId)
     }
 
-    // Describe contents, always return 0
-    override fun describeContents(): Int {
-        return 0
-    }
+    override fun describeContents(): Int = 0
 
-    // Creator object to create instances of the Parcelable class from a parcel
     companion object CREATOR : Parcelable.Creator<Item> {
-        override fun createFromParcel(parcel: Parcel): Item {
-            return Item(parcel)
-        }
+        override fun createFromParcel(parcel: Parcel): Item = Item(parcel)
 
-        // Create a new array of the Parcelable class
-        override fun newArray(size: Int): Array<Item?> {
-            return arrayOfNulls(size)
-        }
+        override fun newArray(size: Int): Array<Item?> = arrayOfNulls(size)
     }
 }
