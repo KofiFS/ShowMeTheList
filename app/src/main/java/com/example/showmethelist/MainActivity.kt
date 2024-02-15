@@ -48,6 +48,7 @@ class MainActivity : AppCompatActivity() {
         Snackbar.make(findViewById(android.R.id.content), "Operation successful", Snackbar.LENGTH_SHORT).show()
     }
 
+    // Custom adapter for the ListView
     private class MyListAdapter(context: Context, private val layout: Int, private val items: List<Item>) :
         ArrayAdapter<Item>(context, layout, items) {
 
@@ -55,37 +56,47 @@ class MainActivity : AppCompatActivity() {
             var convertView = convertView
             var mainViewHolder: ViewHolder? = null
 
+            // Check if convertView is null
             if (convertView == null) {
+                // Inflate list item layout if convertView is null
                 convertView = LayoutInflater.from(context).inflate(layout, parent, false)
                 mainViewHolder = ViewHolder()
+                // Initialize ViewHolder references to layout views
                 mainViewHolder.thumbnail = convertView.findViewById(R.id.imageView)
                 mainViewHolder.title = convertView.findViewById(R.id.textTitle)
                 mainViewHolder.subtitle = convertView.findViewById(R.id.textSubtitle)
                 mainViewHolder.button = convertView.findViewById(R.id.buttonDetails)
+                // Set tag for ViewHolder to convertView
                 convertView.tag = mainViewHolder
             } else {
+                // Retrieve ViewHolder from convertView's tag if convertView is not null
                 mainViewHolder = convertView.tag as ViewHolder
             }
-            val currentItem = items[position]
-            mainViewHolder.button?.setOnClickListener {
 
+            // Get the current item at the specified position
+            val currentItem = items[position]
+
+            // Set click listener for the button
+            mainViewHolder.button?.setOnClickListener {
+                // Start SecondActivity when button is clicked
                 val intent = Intent(context, SecondActivity::class.java).apply {
                     // Pass the selected item to the SecondActivity
-                    putExtra("selectedItem", items[position])
+                    putExtra("selectedItem", currentItem)
                 }
                 context.startActivity(intent) // Start SecondActivity
             }
 
+            // Set the title, subtitle, and thumbnail image for the current item
             mainViewHolder.title?.text = currentItem.title
             mainViewHolder.subtitle?.text = currentItem.subtitle
             mainViewHolder.thumbnail?.setImageResource(currentItem.imageResId)
-            // Set subtitle text as needed
-            // Set image resource for thumbnail image as needed
 
+            // Return the modified convertView
             return convertView!!
         }
     }
 
+    // ViewHolder pattern to cache view references
     class ViewHolder {
         var thumbnail: ImageView? = null
         var title: TextView? = null

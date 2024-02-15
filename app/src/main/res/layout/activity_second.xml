@@ -28,11 +28,10 @@
 
                 <TextView
                     android:id="@+id/item_ID"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="12345"
-                    android:textAlignment="center"
-                    />
+                    android:textAlignment="center" />
             </LinearLayout>
 
             <LinearLayout

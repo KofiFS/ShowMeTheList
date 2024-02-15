@@ -27,19 +27,21 @@ class SecondActivity : AppCompatActivity() {
         val idTextView: TextView = findViewById(R.id.item_ID)
 
         // Set the text for title and subtitle TextViews
-        titleTextView.text = selectedItem?.title
-        subtitleTextView.text = selectedItem?.subtitle
-        descriptionTextView.text = selectedItem?.description
+        titleTextView.text = "Title:\n${selectedItem?.title}"
+        subtitleTextView.text = "\nSub title:\n${selectedItem?.subtitle}"
+        descriptionTextView.text = "\nDescription:\n${selectedItem?.description}"
 
         // Set the image resource for the ImageView
         imageView.setImageResource(selectedItem?.imageResId ?: R.drawable.ic_launcher_foreground)
-        idTextView.text = selectedItem?.id.toString()
+
+        // Set the id text
+        idTextView.text = "ID: ${selectedItem?.id}"
 
         // Initialize and set click listener for the back button
         button = findViewById(R.id.backbutton)
         button.setOnClickListener(View.OnClickListener {
             // Create an intent to switch back to MainActivity upon clicking
-            val intent = Intent(this,  MainActivity::class.java)
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent) // Start MainActivity
         })
     }
